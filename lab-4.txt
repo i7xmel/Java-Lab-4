@@ -1,38 +1,73 @@
+package JAVA_LAB4;
+
 abstract class Robber {
-    // Abstract method to be implemented by subclasses
-    abstract int RowHouses(int[] houseMoney);
-    abstract int RoundHouses(int[] houseMoney);
-    abstract int SquareHouse(int[] houseMoney);
-    abstract int MultiHouseBuilding(int[] moneyType1, int[] moneyType2, int[] moneyType3, int[] moneyType4);
-
-    // Default method in the abstract class
-    void MachineLearning() {
-        System.out.println("I love MachineLearning.");
-    }
-
-    // Function in the abstract class
-    void RobbingClass() {
+    public void RobberClass() {
         System.out.println("MScAI&ML");
+    }
+    public void MachineLearning() {
+        System.out.println("I love MachineLearning");
     }
 }
 
-// Subclass that inherits from Robber
 class JAVAProfessionalRobber extends Robber {
-    // Implementing abstract methods
-    @Override
-    int RowHouses(int[] houseMoney) {
-        int n = houseMoney.length;
-        if (n == 0) return 0;
-        if (n == 1) return houseMoney[0];
-
-        // Dynamic Programming approach to find maximum robbed amount without adjacent houses
-        int[] dp = new int[n];
-        dp[0] = houseMoney[0];
-        dp[1] = Math.max(houseMoney[0], houseMoney[1]);
-
-        for (int i = 2; i < n; i++) {
-            dp[i] = Math.max(dp[i - 1], dp[i - 2] + houseMoney[i]);
+    int max = 0;
+    int RowHouses(int[] money) {
+        for(int i=0;i<2;i++){
+            int temp = money[i] + money[i+2];
+            int newmax = temp;
+            if(newmax > max)
+                max = newmax;
         }
-
-        return dp[n - 1];
+        if(money[0] + money[money.length-1] > max)
+            max = money[0] + money[money.length-1];
+        return max;
     }
+    int RoundHouses(int[] money){
+        int max =0;
+        for(int i=0;i<2;i++){
+            int temp = money[i] + money[i+2];
+            int newmax = temp;
+            if(newmax > max)
+                max = newmax;
+        }
+        return max;
+    }
+    int SquareHouse(int[] money){
+        max = 0;
+        for(int i=0;i<2;i++){
+            int temp = money[i] + money[i+2];
+            int newmax = temp;
+            if(newmax > max)
+                max = newmax;
+        }
+        return max;
+    }
+    int MultiHouseBuilding(int[][] money) {
+        max = 0;
+
+        for (int i = 0; i < 2; i++) {
+            for(int j=0;j<2;j++) {
+                int temp = money[i][j] + money[i][2];
+                int newmax = temp;
+                if (newmax > max)
+                    max = newmax;
+            }
+        }
+        return max;
+    }
+}
+public class MAIN {
+
+    public static void main(String[] args) {
+        JAVAProfessionalRobber j = new JAVAProfessionalRobber();
+        int result = j.RowHouses(new int[]{1, 2, 3, 0});
+        System.out.println("Maximum money that can be robbed: " + result);
+        int result2 = j.RoundHouses(new int[]{1, 2, 3, 4});
+        System.out.println("Maximum money that can be robbed: " + result2);
+        int result3 = j.SquareHouse(new int[]{5, 10, 2, 7});
+        System.out.println("Maximum money that can be robbed: " + result3);
+        int result4 = j.MultiHouseBuilding(new int[][] { { 5, 3, 8, 2 }, { 10, 12, 7, 6 }, { 4, 9, 11, 5 }, { 8, 6, 3, 7 } });
+        System.out.println("Maximum money that can be robbed: " + result4);
+    }
+
+}
