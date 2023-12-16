@@ -1,5 +1,3 @@
-package JAVA_LAB4;
-
 abstract class Robber {
     public void RobberClass() {
         System.out.println("MScAI&ML");
